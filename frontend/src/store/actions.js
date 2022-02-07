@@ -6,13 +6,21 @@ const displayLoader = (context, display) => {
 const login = ({commit}, user) => {
     return axiosClient.post('/login', user)
         .then(({data}) => {
-            console.log(data);
-            commit('logUser', data);
+            commit('setUser', data);
             return data;
+        });
+}
+
+const logout = ({commit}) => {
+    return axiosClient.post('/logout')
+        .then(response => {
+            commit('logout');
+            return response;
         });
 }
 
 export default {
     displayLoader,
     login,
+    logout,
 }

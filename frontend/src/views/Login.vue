@@ -78,7 +78,8 @@ function login() {
       router.push({ name: 'dashboard'});
     })
     .catch((error) => {
-      errors.value = error.response.data.errors;
+      // errors.value = error.response.data.errors;
+      console.log(error)
     });
 }
 </script>

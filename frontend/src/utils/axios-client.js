@@ -6,9 +6,11 @@ const axiosClient = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
 });
 
-// axiosClient.interceptors.request.use((config) => {
-//     config.headers.Authorization = `Bearer ${store.state.user.token}`;
-// })
+axiosClient.interceptors.request.use((config) => {
+    config.headers.Authorization = `Bearer ${store.state.user.token}`;
+
+    return config;
+});
 
 axiosClient.interceptors.request.use(
     (config) => {
@@ -35,7 +37,7 @@ axiosClient.interceptors.response.use(
             // Session Expired
             if (401 === error.response.status) {
                 errors = error.response.data.message;
-                store.dispatch('logOut');
+                store.dispatch('logout');
             }
 
             // Backend error

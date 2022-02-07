@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -16,7 +17,10 @@ class LoginController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        $remember = $request->validated()['remember'] ?? false;
+        unset($request->validated()['remember']);
+
+        if (! Auth::attempt($request->validated(), $remember)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
@@ -30,8 +34,12 @@ class LoginController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken->delete();
+        $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => __('Logout successfully.')]);
+        return response()->json([
+            'data' => [
+                'message' => 'Logout successfully'
+            ]
+        ]);
     }
 }

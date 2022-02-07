@@ -13,10 +13,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     let redirectToRoute = function (name) {
         if (name === from.name) {
-            next()
+            next();
             return;
         }
-
         next({name: name});
     };
 
@@ -25,12 +24,16 @@ router.beforeEach((to, from, next) => {
     // Role
     if (to.meta.roles) {
         if (loggedUser) {
-            if (to.meta.roles.includes(loggedUser.role)) return next();
-            else return redirectToRoute('error-404');
+            if (to.meta.roles.includes(loggedUser.role)) {
+                return next();
+            } else {
+                return redirectToRoute('error-404');
+            }
         } else {
             return redirectToRoute('login');
         }
     }
+
 
     // Auth
     if (to.meta.auth) {
@@ -39,6 +42,11 @@ router.beforeEach((to, from, next) => {
         } else {
             return redirectToRoute('login');
         }
+    }
+
+    // login
+    if (loggedUser.token && to.name === 'login') {
+        return redirectToRoute('dashboard');
     }
 
     // Guest

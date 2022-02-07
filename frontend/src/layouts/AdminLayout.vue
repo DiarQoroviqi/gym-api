@@ -212,7 +212,7 @@ export default {
     const router = useRouter();
 
     function logout() {
-      store.commit('logout');
+      store.dispatch('logout')
       router.push({name: 'login'});
     }
 

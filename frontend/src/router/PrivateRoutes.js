@@ -3,12 +3,17 @@ import DefaultLayout from "../layouts/AdminLayout.vue";
 
 export default [
     {
-        path: '/dashboard',
+        path: '/',
+        redirect: '/dashboard',
         name: 'dashboard',
         component: DefaultLayout,
         meta: { auth: true },
         children: [
-            {path: '/dashboard', name: 'dashboard', component: Dashboard, meta: { auth: true },}
+            {
+                path: '/dashboard',
+                name: 'dashboard',
+                component: Dashboard
+            }
         ]
     },
 ]
