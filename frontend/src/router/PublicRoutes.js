@@ -1,12 +1,12 @@
 import Login from "../views/Login.vue";
-import AuthLayout from "../layouts/AuthLayout.vue";
+import GuestLayout from "../layouts/GuestLayout.vue";
 
 export default [
     {
         path: '/login',
         redirect: '/login',
         name: 'Auth',
-        component: AuthLayout,
+        component: GuestLayout,
         children: [
             {
                 path: '/login',

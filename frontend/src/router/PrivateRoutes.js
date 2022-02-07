@@ -1,12 +1,12 @@
 import Dashboard from "../views/Dashboard.vue";
-import DefaultLayout from "../layouts/AdminLayout.vue";
+import AuthLayout from "../layouts/AuthLayout.vue";
 
 export default [
     {
         path: '/',
         redirect: '/dashboard',
         name: 'dashboard',
-        component: DefaultLayout,
+        component: AuthLayout,
         meta: { auth: true },
         children: [
             {
