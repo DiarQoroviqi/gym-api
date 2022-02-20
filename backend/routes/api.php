@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\NewPasswordController;
+use App\Http\Controllers\Api\V1\ClientsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +27,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
+
+
+// Clients...
+Route::group([
+    'prefix' => 'v1',
+    'as' => 'api.',
+    'namespace' => 'Api\V1',
+    'middleware' => ['auth:sanctum']
+], function () {
+    Route::apiResource('clients', ClientsController::class);
+});

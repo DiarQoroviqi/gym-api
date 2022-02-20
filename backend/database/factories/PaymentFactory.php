@@ -15,7 +15,6 @@ class PaymentFactory extends Factory
         return [
             'user_id' => User::factory(),
             'price' => $this->faker->randomFloat(2, 15, 90),
-            'type' => $this->faker->randomElement(['drink', 'contract']),
         ];
     }
 }

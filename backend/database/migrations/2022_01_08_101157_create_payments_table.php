@@ -17,7 +17,6 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->decimal('price');
-            $table->enum('type', ['contract', 'drink']);
             $table->timestamps();
         });
     }
