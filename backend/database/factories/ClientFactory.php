@@ -13,8 +13,9 @@ class ClientFactory extends Factory
     {
         return [
             'uuid' => $this->faker->uuid(),
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'phone' => $this->faker->phoneNumber(),
             'comment' => null,
         ];
     }

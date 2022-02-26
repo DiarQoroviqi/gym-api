@@ -4,7 +4,7 @@ use App\Models\User;
 use App\Notifications\UserRegistered;
 use Illuminate\Support\Facades\Notification;
 
-it('can register user', function () {
+it('can register user and send notification', function () {
     Notification::fake();
 
     $command = $this->artisan('register:user')
@@ -13,5 +13,5 @@ it('can register user', function () {
 
     $command->assertSuccessful()->run();
 
-    Notification::assertSentTo(User::first(2), UserRegistered::class);
+    Notification::assertSentTo(User::first(), UserRegistered::class);
 });

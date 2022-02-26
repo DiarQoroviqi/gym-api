@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->uuid('uuid');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('phone')->unique();
             $table->text('comment')->nullable()->default(null);
             $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();

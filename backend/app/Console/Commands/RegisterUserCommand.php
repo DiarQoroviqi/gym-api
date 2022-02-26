@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands;
 
-use App\Models\User;
+use App\Contracts\Actions\RegistersUser;
 use App\Notifications\UserRegistered;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
 
 class RegisterUserCommand extends Command
 {
@@ -15,16 +15,14 @@ class RegisterUserCommand extends Command
 
     protected $description = 'Register user';
 
-    public function __construct()
+    public function __construct(protected RegistersUser $registerUser)
     {
         parent::__construct();
     }
 
     public function handle(): int
     {
-        $password = Str::random(10);
-
-        $user = User::create([
+        $user = $this->registerUser->handle([
             'name' => $this->ask('Name'),
             'email' => $this->ask('Email'),
             'email_verified_now' => now(),
