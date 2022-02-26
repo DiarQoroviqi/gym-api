@@ -13,6 +13,7 @@ class ContractFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->uuid(),
             'client_id' => Client::factory(),
             'payment_date' => $this->faker->dateTimeBetween('-3 month', '-1 month'),
             'price' => $this->faker->randomFloat(2, 15, 90),

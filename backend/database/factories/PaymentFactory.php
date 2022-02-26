@@ -13,6 +13,7 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->uuid(),
             'user_id' => User::factory(),
             'price' => $this->faker->randomFloat(2, 15, 90),
         ];

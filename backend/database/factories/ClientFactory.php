@@ -12,6 +12,7 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
+            'uuid' => $this->faker->uuid(),
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'comment' => null,

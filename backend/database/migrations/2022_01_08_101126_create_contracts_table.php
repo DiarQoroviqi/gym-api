@@ -15,6 +15,7 @@ class CreateContractsTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('client_id');
             $table->dateTime('payment_date');
             $table->decimal('price');
