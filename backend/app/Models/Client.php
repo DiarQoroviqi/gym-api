@@ -13,6 +13,10 @@ class Client extends Model
     use Filterable;
     use HasUuid;
 
+    public $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function getRouteKeyName(): string
     {
         return 'uuid';

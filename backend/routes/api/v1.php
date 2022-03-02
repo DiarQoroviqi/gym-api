@@ -10,14 +10,14 @@ Route::group([
     'prefix' => 'auth',
     'as' => 'auth.',
 ], function () {
-    Route::post('/login', [LoginController::class, 'authenticate']);
-    Route::post('/reset-password', [NewPasswordController::class, 'store']);
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('login');
+    Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('reset-password');
 });
 
 Route::group([
     'middleware' => ['auth:sanctum']
 ], function () {
-    Route::post('/logout', [LoginController::class, 'logout']);
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::apiResource('clients', ClientsController::class);
 });

@@ -13,7 +13,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    public function authenticate(LoginRequest $request): UserLoginResource
+    public function authenticate(LoginRequest $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
 
@@ -26,7 +26,13 @@ class LoginController extends Controller
             ]);
         }
 
-        return new UserLoginResource($user);
+        return response()->json([
+            'data' => [
+                'name' => $user->name,
+                'email' => $user->email,
+                'token' => $user->createToken('main')->plainTextToken
+            ]
+        ]);
     }
 
     public function logout(Request $request): JsonResponse
