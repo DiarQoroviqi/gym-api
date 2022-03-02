@@ -4,20 +4,17 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use function Pest\Laravel\postJson;
 
-it('should return 422 if email or password is wrong', function (string $email, string $password) {
-    User::factory()->create([
-        'email' => $email,
+it('should return 422 if password is wrong', function (string $password) {
+    $user = User::factory()->create([
         'password' => Hash::make($password),
     ]);
 
     postJson('/api/v1/auth/login', [
-        'email' => 'wrong@email.com',
+        'email' => $user->email,
         'password' => 'wrong-password',
     ])
         ->assertStatus(422);
-})->with([
-    ['test@email.com', 'password']
-]);
+})->with(['password']);
 
 it('can authenticate user', function () {
    $user = User::factory()->create();
