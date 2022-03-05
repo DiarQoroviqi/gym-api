@@ -11,6 +11,13 @@ class Contract extends Model
     use HasFactory;
     use HasUuid;
 
+    protected $casts = [
+        'payment_date' => 'datetime',
+        'price' => 'double',
+        'from_date' => 'datetime',
+        'to_date' => 'datetime',
+    ];
+
     public function getRouteKeyName(): string
     {
         return 'uuid';
