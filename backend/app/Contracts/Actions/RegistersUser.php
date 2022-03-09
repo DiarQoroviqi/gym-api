@@ -2,7 +2,7 @@
 
 namespace App\Contracts\Actions;
 
-use App\Models\User;
+use Domain\Shared\Models\User;
 
 interface RegistersUser
 {

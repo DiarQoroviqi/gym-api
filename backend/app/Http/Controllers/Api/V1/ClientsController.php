@@ -7,10 +7,12 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GetClientsRequest;
 use App\Http\Resources\ClientResource;
-use App\Models\Client;
+use Domain\Contracting\Models\Client;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Spatie\QueryBuilder\QueryBuilder;
+use Symfony\Component\HttpFoundation\Response;
 
 class ClientsController extends Controller
 {
@@ -24,24 +26,14 @@ class ClientsController extends Controller
         return ClientResource::collection($clients);
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         //
     }
 
-    public function show($id)
+    public function show(Request $request, Client $client)
     {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
+        dd($client, $c);
     }
 
     public function update(Request $request, $id)
@@ -49,8 +41,9 @@ class ClientsController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, Client $client): JsonResponse
     {
-        //
+        dd($client);
+        return response()->noContent();
     }
 }

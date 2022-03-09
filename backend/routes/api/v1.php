@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\NewPasswordController;
 use App\Http\Controllers\Api\V1\ClientsController;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Route;
 
 // Auth
@@ -20,4 +21,8 @@ Route::group([
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::apiResource('clients', ClientsController::class);
+
+
 });
+
+

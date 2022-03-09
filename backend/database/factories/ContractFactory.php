@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Client;
-use App\Models\Contract;
+use Domain\Contracting\Models\Client;
+use Domain\Contracting\Models\Contract;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ContractFactory extends Factory

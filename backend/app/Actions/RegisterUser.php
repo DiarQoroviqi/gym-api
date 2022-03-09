@@ -3,7 +3,7 @@
 namespace App\Actions;
 
 use App\Contracts\Actions\RegistersUser;
-use App\Models\User;
+use Domain\Shared\Models\User;
 
 class RegisterUser implements RegistersUser
 {

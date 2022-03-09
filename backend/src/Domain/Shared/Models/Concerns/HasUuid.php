@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Concerns;
+namespace Domain\Shared\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
@@ -14,4 +14,8 @@ trait HasUuid
         });
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
 }

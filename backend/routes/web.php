@@ -1,5 +1,6 @@
 <?php
 
+use Domain\Contracting\Models\Client;
 use Illuminate\Support\Facades\Route;
 
 /*

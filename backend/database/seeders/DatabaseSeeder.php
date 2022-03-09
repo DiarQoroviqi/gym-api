@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client;
-use App\Models\Contract;
-use App\Models\Payment;
-use App\Models\User;
+use Domain\Contracting\Models\Client;
+use Domain\Contracting\Models\Contract;
+use Domain\Contracting\Models\Payment;
+use Domain\Shared\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        Client::factory(10)->create()->each(function(Client $client) {
-            Contract::factory(1)->create();
+        Client::factory(20)->create()->each(function(Client $client) {
+            Contract::factory(rand(1, 4))->for($client)->create();
         });
 
-        Payment::factory(10)->sequence(function () {
+        Payment::factory(20)->sequence(function () {
             return [
                 'user_id' => User::all()->random(),
             ];

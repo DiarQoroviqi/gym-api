@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Domain\Shared\Models\User;
 use App\Notifications\UserRegistered;
 use Illuminate\Support\Facades\Notification;
 
