@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Api\V1;
 
+use App\Http\Resources\Api\V1\ContractResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use function route;
 
 class ClientResource extends JsonResource
 {
@@ -18,7 +20,8 @@ class ClientResource extends JsonResource
                 'last_name' => $this->last_name,
                 'phone' => $this->phone,
                 'comment' => $this->comment,
-                'created_at' => $this->created_at->toDateString(),
+                'created_at' => $this->created_at->toDateTimeString(),
+                'updated_at' => $this->updated_at->toDateTimeString(),
             ],
             'relationships' => [
                 'contacts' => ContractResource::collection($this->whenLoaded('contracts')),

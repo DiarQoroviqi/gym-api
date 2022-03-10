@@ -195,4 +195,8 @@ return [
         // ...
     ])->toArray(),
 
+    'pagination' => [
+        'per_page' => 10,
+    ],
+
 ];

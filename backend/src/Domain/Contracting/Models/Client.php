@@ -22,6 +22,13 @@ class Client extends Model
         'created_at' => 'datetime',
     ];
 
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'phone',
+        'comment',
+    ];
+
     protected static function newFactory(): Factory
     {
         return new ClientFactory();
