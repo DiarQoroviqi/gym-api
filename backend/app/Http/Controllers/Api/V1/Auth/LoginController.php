@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\LoginRequest;
-use App\Http\Resources\UserLoginResource;
 use Domain\Shared\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,8 +31,8 @@ class LoginController extends Controller
             'data' => [
                 'name' => $user->name,
                 'email' => $user->email,
-                'token' => $user->createToken('main')->plainTextToken
-            ]
+                'token' => $user->createToken('main')->plainTextToken,
+            ],
         ]);
     }
 
@@ -41,8 +42,8 @@ class LoginController extends Controller
 
         return response()->json([
             'data' => [
-                'message' => 'Logout successfully'
-            ]
+                'message' => 'Logout successfully',
+            ],
         ]);
     }
 }

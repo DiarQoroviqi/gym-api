@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -22,7 +24,7 @@ class UserRegistered extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject(__('Account Created'))
             ->line(__('Your account has been created.'))
             ->line(__('You can reset your password by going to the link below.'))

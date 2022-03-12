@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Domain\Contracting\Models\Client;
@@ -16,7 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        Client::factory(20)->create()->each(function(Client $client) {
+        Client::factory(20)->create()->each(function (Client $client) {
             Contract::factory(rand(1, 4))->for($client)->create();
         });
 

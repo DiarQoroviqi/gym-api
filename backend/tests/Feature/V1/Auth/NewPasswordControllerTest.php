@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Shared\Models\User;
 use Illuminate\Support\Facades\Password;
 use function Pest\Laravel\postJson;

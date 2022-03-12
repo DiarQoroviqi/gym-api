@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Shared\Models;
 
-use Domain\Shared\Models\Concerns\HasUuid;
-use Database\Factories\ContractFactory;
 use Database\Factories\UserFactory;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Domain\Shared\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Domain\Contracting\Models\Client;
 use Domain\Shared\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -14,7 +16,8 @@ it('should return clients', function () {
 
     $this->actingAs($this->user)->getJson('/api/v1/clients')
         ->assertStatus(200)
-        ->assertJson(fn (AssertableJson $json) =>
+        ->assertJson(
+            fn (AssertableJson $json) =>
             $json->has(2)
                 ->where('0.id', $client->uuid)
                 ->where('0.attributes.first_name', $client->first_name)
@@ -29,7 +32,7 @@ it('should filter clients with filters', function () {
         'first_name' => 'John',
         'last_name' => 'Doe',
         'phone' => '11111111',
-        'comment' => 'comment'
+        'comment' => 'comment',
     ]);
 
     $client2 = Client::factory()->create([
@@ -44,7 +47,8 @@ it('should filter clients with filters', function () {
         'filter[last_name]' => 'doe',
     ]))
         ->assertStatus(200)
-        ->assertJson(fn (AssertableJson $json) =>
+        ->assertJson(
+            fn (AssertableJson $json) =>
             $json->has(1)
                 ->where('0.id', $client->uuid)
                 ->where('0.attributes.first_name', $client->first_name)
@@ -52,10 +56,11 @@ it('should filter clients with filters', function () {
         );
 
     $this->actingAs($this->user)->getJson('/api/v1/clients?'. http_build_query([
-            'filter[phone]' => '22222222',
+        'filter[phone]' => '22222222',
     ]))
         ->assertStatus(200)
-        ->assertJson(fn (AssertableJson $json) =>
+        ->assertJson(
+            fn (AssertableJson $json) =>
         $json->has(1)
             ->where('0.id', $client2->uuid)
             ->where('0.attributes.first_name', $client2->first_name)
@@ -67,6 +72,6 @@ it('should return 401 without authentication token', function () {
     $this->getJson('/api/v1/clients')
         ->assertStatus(401)
         ->assertJson([
-            'message' => 'Unauthenticated.'
+            'message' => 'Unauthenticated.',
         ]);
 });

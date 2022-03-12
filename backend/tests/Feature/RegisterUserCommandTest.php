@@ -1,7 +1,9 @@
 <?php
 
-use Domain\Shared\Models\User;
+declare(strict_types=1);
+
 use App\Notifications\UserRegistered;
+use Domain\Shared\Models\User;
 use Illuminate\Support\Facades\Notification;
 
 it('can register user and send notification', function () {

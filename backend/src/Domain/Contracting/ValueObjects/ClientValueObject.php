@@ -11,7 +11,8 @@ class ClientValueObject
         public string $lastName,
         public null|string $phone,
         public null|string $comment,
-    ){}
+    ) {
+    }
 
     public function toArray(): array
     {

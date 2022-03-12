@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -31,7 +33,7 @@ return [
     ],
 
     'frontend' => [
-        'reset_password_url' => env('FRONTEND_RESET_PASSWORD_URL')
-    ]
+        'reset_password_url' => env('FRONTEND_RESET_PASSWORD_URL'),
+    ],
 
 ];

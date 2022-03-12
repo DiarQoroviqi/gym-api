@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Resources\Api\V1;
 
-use App\Http\Resources\Api\V1\ContractResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use function route;
 

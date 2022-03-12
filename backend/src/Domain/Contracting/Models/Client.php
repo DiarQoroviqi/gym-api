@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Contracting\Models;
 
+use Database\Factories\ClientFactory;
+use Deviar\LaravelQueryFilter\Filters\Filterable;
 use Domain\Contracting\Models\Builders\ClientBuilder;
 use Domain\Shared\Models\Concerns\HasUuid;
-use Database\Factories\ClientFactory;
-use Domain\Contracting\Models\Contract;
-use Deviar\LaravelQueryFilter\Filters\Filterable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +40,7 @@ class Client extends Model
         return new ClientBuilder($query);
     }
 
-        public function contracts(): HasMany
+    public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class, 'client_id');
     }
