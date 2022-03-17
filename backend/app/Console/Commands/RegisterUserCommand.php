@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Contracts\Actions\RegistersUser;
+use Infrastructure\Shared\Actions\RegistersUser;
 use App\Notifications\UserRegistered;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Password;

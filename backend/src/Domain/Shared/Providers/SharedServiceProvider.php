@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
-namespace App\Providers;
+namespace Domain\Shared\Providers;
 
 use Domain\Shared\Actions\RegisterUser;
-use Infrastructure\Shared\Actions\RegistersUser;
 use Illuminate\Support\ServiceProvider;
+use Infrastructure\Shared\Actions\RegistersUser;
 
-class ActionServiceProvider extends ServiceProvider
+class SharedServiceProvider extends ServiceProvider
 {
     public array $bindings = [
         RegistersUser::class => RegisterUser::class,

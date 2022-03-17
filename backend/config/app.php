@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Domain\Contracting\Providers\ContractingServiceProvider;
+use Domain\Shared\Providers\SharedServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -169,6 +171,12 @@ return [
         /*
          * Package Service Providers...
          */
+
+        /*
+         * Domain Service Providers...
+         */
+        ContractingServiceProvider::class,
+        SharedServiceProvider::class,
 
         /*
          * Application Service Providers...

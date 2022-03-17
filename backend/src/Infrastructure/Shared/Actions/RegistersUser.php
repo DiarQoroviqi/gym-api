@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Contracts\Actions;
+namespace Infrastructure\Shared\Actions;
 
 use Domain\Shared\Models\User;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Actions;
+namespace Domain\Shared\Actions;
 
-use App\Contracts\Actions\RegistersUser;
+use Infrastructure\Shared\Actions\RegistersUser;
 use Domain\Shared\Models\User;
 
 class RegisterUser implements RegistersUser

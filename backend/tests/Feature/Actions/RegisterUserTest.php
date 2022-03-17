@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Actions\RegisterUser;
+use Domain\Shared\Actions\RegisterUser;
 
 it('can register a user', function () {
     $action = app(RegisterUser::class);

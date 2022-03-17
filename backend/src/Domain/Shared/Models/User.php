@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Shared\Models;
 
 use Database\Factories\UserFactory;
+use Domain\Shared\Models\Builders\UserBuilder;
 use Domain\Shared\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,5 +38,10 @@ class User extends Authenticatable
     protected static function newFactory(): Factory
     {
         return new UserFactory();
+    }
+
+    public function newEloquentBuilder($query): UserBuilder
+    {
+        return new UserBuilder($query);
     }
 }
