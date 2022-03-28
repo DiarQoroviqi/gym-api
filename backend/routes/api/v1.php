@@ -23,7 +23,7 @@ Route::group([
 
 // Clients
 Route::prefix('clients')->as('clients.')->middleware(['auth:sanctum'])->group(function () {
-    Route::get('/', IndexController::class)->name('index');
+    Route::get('/', IndexController::class)->middleware(['permission:edit clients'])->name('index');
     Route::post('/', StoreController::class)->name('store');
     Route::get('/{client:uuid}', ShowController::class)->name('show');
     Route::match(['put', 'patch'], '/{client:uuid}', UpdateController::class)->name('update');

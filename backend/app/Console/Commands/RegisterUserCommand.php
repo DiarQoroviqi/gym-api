@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use Infrastructure\Shared\Actions\RegistersUser;
 use App\Notifications\UserRegistered;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Password;
+use Infrastructure\Shared\Actions\RegistersUser;
 
 class RegisterUserCommand extends Command
 {

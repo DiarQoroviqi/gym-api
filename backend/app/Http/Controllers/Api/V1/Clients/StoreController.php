@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Api\V1\Clients;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Client\StoreClientRequest;
 use App\Http\Resources\Api\V1\ClientResource;
-use Domain\Contracting\Actions\CreateClient;
 use Domain\Contracting\Factories\ClientFactory;
 use Illuminate\Http\JsonResponse;
 use Infrastructure\Contracting\Actions\CreatesClient;

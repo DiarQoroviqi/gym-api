@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Domain\Shared\Actions;
 
-use Infrastructure\Shared\Actions\RegistersUser;
 use Domain\Shared\Models\User;
+use Infrastructure\Shared\Actions\RegistersUser;
 
 class RegisterUser implements RegistersUser
 {

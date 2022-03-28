@@ -11,11 +11,19 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::factory()->create([
+        $admin = User::factory()->create([
             'name' => 'Diar Qoroviqi',
             'email' => 'qoroviqidiar@gmail.com',
         ]);
 
-        User::factory(10)->create();
+        $admin->assignRole('super-admin');
+
+        User::factory(5)->create()->each(function (User $user, $key) {
+            if ($key % 2 === 0) {
+                $user->assignRole('receptionist');
+            } else {
+                $user->assignRole('coach');
+            }
+        });
     }
 }
