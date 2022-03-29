@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return new UserBuilder($query);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('super-admin');
+    }
 }

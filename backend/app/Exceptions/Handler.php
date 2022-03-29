@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Spatie\Permission\Exceptions\UnauthorizedException;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -39,5 +42,17 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Exception|Throwable $exception)
+    {
+        if ($exception instanceof UnauthorizedException) {
+            return response()->json([
+                'message' => 'You do not have required authorization.',
+                'status'  => 403,
+            ], Response::HTTP_FORBIDDEN);
+        }
+
+        return parent::render($request, $exception);
     }
 }
