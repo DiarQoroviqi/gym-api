@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -44,15 +46,18 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Exception|Throwable $exception)
+    public function render($request, Exception|Throwable $e): JsonResponse
     {
-        if ($exception instanceof UnauthorizedException) {
-            return response()->json([
-                'message' => 'You do not have required authorization.',
-                'status'  => 403,
-            ], Response::HTTP_FORBIDDEN);
+        if ($e instanceof UnauthorizedException) {
+            return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
         }
 
-        return parent::render($request, $exception);
+        if ($e instanceof ModelNotFoundException) {
+            return response()->json([
+                'message' => 'Resource not found!'
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return parent::render($request, $e);
     }
 }
