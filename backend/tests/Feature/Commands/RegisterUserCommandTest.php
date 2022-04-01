@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Notifications\UserRegistered;
 use Domain\Shared\Models\User;
 use Illuminate\Support\Facades\Notification;
+use Infrastructure\Shared\Actions\RegistersUser;
 
 it('can register a user', function () {
     Notification::fake();
@@ -17,4 +18,4 @@ it('can register a user', function () {
     $command->assertSuccessful()->run();
 
     Notification::assertSentTo(User::first(), UserRegistered::class);
-})->shouldHaveCalledAction(\Infrastructure\Shared\Actions\RegistersUser::class);
+})->shouldHaveCalledAction(RegistersUser::class);
