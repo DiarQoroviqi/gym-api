@@ -9,7 +9,7 @@ use Infrastructure\Shared\Actions\RegistersUser;
 
 class RegisterUser implements RegistersUser
 {
-    public function handle(array $data): User
+    public function __invoke(array $data): User
     {
         return User::create($data);
     }

@@ -9,5 +9,5 @@ use Domain\Contracting\ValueObjects\ClientValueObject;
 
 interface CreatesClient
 {
-    public function handle(ClientValueObject $object): Client;
+    public function __invoke(ClientValueObject $object): Client;
 }

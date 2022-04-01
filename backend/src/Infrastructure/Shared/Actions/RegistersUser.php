@@ -8,5 +8,5 @@ use Domain\Shared\Models\User;
 
 interface RegistersUser
 {
-    public function handle(array $data): User;
+    public function __invoke(array $data): User;
 }

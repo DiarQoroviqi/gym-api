@@ -8,25 +8,17 @@ use App\Notifications\UserRegistered;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Password;
 use Infrastructure\Shared\Actions\RegistersUser;
+use Symfony\Component\Console\Command\Command as BaseCommand;
 
 class RegisterUserCommand extends Command
 {
-    protected $signature = 'register:user';
+    protected $signature = 'register:user {name?} {email?}';
 
     protected $description = 'Register user';
 
-    public function __construct(protected RegistersUser $registerUser)
+    public function handle(RegistersUser $registerUser): int
     {
-        parent::__construct();
-    }
-
-    public function handle(): int
-    {
-        $user = $this->registerUser->handle([
-            'name' => $this->ask('Name'),
-            'email' => $this->ask('Email'),
-            'email_verified_now' => now(),
-        ]);
+        $user = $registerUser($this->data());
 
         $token = Password::createToken($user);
 
@@ -34,6 +26,15 @@ class RegisterUserCommand extends Command
 
         $this->info('User has been registered.');
 
-        return 0;
+        return BaseCommand::SUCCESS;
+    }
+
+    private function data(): array
+    {
+        return [
+            'name' => $this->argument('name') ?? $this->ask('What is the user\'s name?'),
+            'email' => $this->argument('email') ?? $this->ask('What is the user\'s email?'),
+            'email_verified_now' => now(),
+        ];
     }
 }

@@ -10,7 +10,7 @@ use Infrastructure\Contracting\Actions\CreatesClient;
 
 class CreateClient implements CreatesClient
 {
-    public function handle(ClientValueObject $object): Client
+    public function __invoke(ClientValueObject $object): Client
     {
         return Client::create($object->toArray());
     }

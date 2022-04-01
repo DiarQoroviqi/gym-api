@@ -7,7 +7,7 @@ use Domain\Shared\Actions\RegisterUser;
 it('can register a user', function () {
     $action = app(RegisterUser::class);
 
-    $user = $action->handle([
+    $user = $action([
         'name' => 'John Doe',
         'email' => 'foo@bar.com',
     ]);

@@ -14,15 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
 {
-    public function __invoke(StoreClientRequest $request, CreatesClient $createsClient): JsonResponse
+    public function __invoke(StoreClientRequest $request, CreatesClient $createClient): JsonResponse
     {
-        $client = $createsClient->handle(
-            object: ClientFactory::create($request->validated())
-        );
+        $client = $createClient(ClientFactory::create($request->validated()));
 
         return response()->json(
-            data: ClientResource::make($client),
-            status: Response::HTTP_CREATED
+            ClientResource::make($client),
+            Response::HTTP_CREATED
         );
     }
 }
