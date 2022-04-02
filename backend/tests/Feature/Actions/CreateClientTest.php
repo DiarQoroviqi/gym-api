@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Domain\Contracting\Actions\CreateClient;
 use Domain\Contracting\ValueObjects\ClientValueObject;
 
-it('can create client', function() {
+it('can create client', function () {
     $action = app(CreateClient::class);
 
     $clientValueObject = new ClientValueObject(

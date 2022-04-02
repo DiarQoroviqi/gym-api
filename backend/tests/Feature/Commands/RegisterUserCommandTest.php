@@ -12,10 +12,10 @@ it('can register a user', function () {
 
     $command = $this->artisan('register:user', [
         'name' => 'John Doe',
-        'email' => 'jon@doe.com',
+        'email' => 'john@doe.com',
     ]);
 
     $command->assertSuccessful()->run();
 
-    Notification::assertSentTo(User::first(), UserRegistered::class);
+    Notification::assertSentTo(User::where('email', 'john@doe.com')->get(), UserRegistered::class);
 })->shouldHaveCalledAction(RegistersUser::class);
