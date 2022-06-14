@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Domain\Contracting\ValueObjects;
 
-class ClientValueObject
+use Illuminate\Contracts\Support\Arrayable;
+
+final class ClientValueObject implements Arrayable
 {
     public function __construct(
-        public string $firstName,
-        public string $lastName,
-        public null|string $phone,
-        public null|string $comment,
+        public readonly string $firstName,
+        public readonly string $lastName,
+        public readonly null|string $phone,
+        public readonly null|string $comment,
     ) {
     }
 

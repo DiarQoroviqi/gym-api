@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Domain\Contracting\Factories;
 
 use Domain\Contracting\ValueObjects\ClientValueObject;
+use Infrastructure\Contracting\Factories\ClientFactoryContract;
 
-class ClientFactory
+final class ClientFactory implements ClientFactoryContract
 {
-    public static function create(array $attributes): ClientValueObject
+    public function make(array $attributes): ClientValueObject
     {
         return new ClientValueObject(
-            firstName: $attributes['first_name'],
-            lastName: $attributes['last_name'],
-            phone: $attributes['phone'],
-            comment: $attributes['comment'],
+            $attributes['first_name'],
+            $attributes['last_name'],
+            $attributes['phone'],
+            $attributes['comment'],
         );
     }
 }
