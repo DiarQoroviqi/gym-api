@@ -18,8 +18,8 @@ class StoreClientRequest extends FormRequest
         return [
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
-            'phone' => ['nullable', 'string', 'unique:clients,phone'],
-            'comment' => ['nullable', 'string'],
+            'phone' => ['nullable', 'present', 'string', 'unique:clients,phone'],
+            'comment' => ['nullable', 'present', 'string'],
         ];
     }
 }

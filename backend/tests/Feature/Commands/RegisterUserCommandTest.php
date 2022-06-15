@@ -7,7 +7,7 @@ use Domain\Shared\Models\User;
 use Illuminate\Support\Facades\Notification;
 use Infrastructure\Shared\Actions\RegistersUser;
 
-it('can register a user', function () {
+it('can register a user with register:user command', function () {
     Notification::fake();
 
     $command = $this->artisan('register:user', [
