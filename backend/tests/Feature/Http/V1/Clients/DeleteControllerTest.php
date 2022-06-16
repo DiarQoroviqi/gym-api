@@ -22,3 +22,27 @@ it('can delete a client as a super-admin', function () {
     expect($client->refresh())
         ->deleted_at->not->toBeNull();
 });
+
+it('can delete a client as a receptionist', function () {
+    $client = Client::factory()->create();
+
+    $this->user->assignRole(Role::RECEPTIONIST);
+
+    $this->actingAs($this->user)->delete('/api/v1/clients/' . $client->uuid)
+        ->assertStatus(Response::HTTP_NO_CONTENT);
+
+    expect($client->refresh())
+        ->deleted_at->not->toBeNull();
+});
+
+it('can not delete a client as a coach', function () {
+    $client = Client::factory()->create();
+
+    $this->user->assignRole(Role::COACH);
+
+    $this->actingAs($this->user)->delete('/api/v1/clients/' . $client->uuid)
+        ->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+    expect($client->refresh())
+        ->deleted_at->toBeNull();
+});
