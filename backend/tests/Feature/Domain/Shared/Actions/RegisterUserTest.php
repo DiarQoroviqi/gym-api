@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Domain\Shared\Actions\RegisterUser;
 
-it('can register a user', function () {
+it('registers user', function () {
     $action = app(RegisterUser::class);
 
     $user = $action([

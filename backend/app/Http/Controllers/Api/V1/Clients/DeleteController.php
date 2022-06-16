@@ -11,9 +11,13 @@ use Infrastructure\Contracting\Actions\DeletesClient;
 
 class DeleteController extends Controller
 {
-    public function __invoke(Client $client, DeletesClient $action): Response
+    public function __construct(public readonly DeletesClient $action)
     {
-        $action->handle($client);
+    }
+
+    public function __invoke(Client $client): Response
+    {
+        $this->action->handle($client);
 
         return response()->noContent();
     }

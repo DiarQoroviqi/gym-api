@@ -10,7 +10,6 @@ use Infrastructure\Contracting\Actions\UpdatesClient;
 
 class UpdateClient implements UpdatesClient
 {
-
     public function __invoke(Client $client, ClientValueObject $object): Client
     {
         $client->fill($object->toArray())->save();

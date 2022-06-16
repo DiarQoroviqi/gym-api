@@ -24,18 +24,18 @@ Route::group([
 // Clients
 Route::prefix('clients')->as('clients.')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/', IndexController::class)
-        ->middleware(['permission:view clients'])
+        ->middleware(['permission:view-clients'])
         ->name('index');
     Route::post('/', StoreController::class)
-        ->middleware(['permission:create clients'])
+        ->middleware(['permission:create-clients'])
         ->name('store');
     Route::get('/{client:uuid}', ShowController::class)
-        ->middleware(['permission:view clients'])
+        ->middleware(['permission:view-clients'])
         ->name('show');
     Route::match(['put', 'patch'], '/{client:uuid}', UpdateController::class)
-        ->middleware(['permission:edit clients'])
+        ->middleware(['permission:edit-clients'])
         ->name('update');
     Route::delete('/{client:uuid}', DeleteController::class)
-        ->middleware(['permission:delete clients'])
+        ->middleware(['permission:delete-clients'])
         ->name('delete');
 });

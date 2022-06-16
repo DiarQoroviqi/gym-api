@@ -3,23 +3,26 @@
 declare(strict_types=1);
 
 use Domain\Contracting\Actions\CreateClient;
+use Domain\Contracting\Models\Client;
 use Domain\Contracting\ValueObjects\ClientValueObject;
 
-it('can create client', function () {
+it('creates client', function () {
     $action = app(CreateClient::class);
 
+    $client = Client::factory()->make();
+
     $clientValueObject = new ClientValueObject(
-        'John',
-        'Doe',
-        '+383123456789',
-        'comment',
+        $client->first_name,
+        $client->last_name,
+        $client->phone,
+        $client->comment,
     );
 
     $createdClient = $action($clientValueObject);
 
     expect($createdClient->refresh())
-        ->first_name->toBe('John')
-        ->last_name->toBe('Doe')
-        ->phone->toBe('+383123456789')
-        ->comment->toBe('comment');
+        ->first_name->toBe($client->first_name)
+        ->last_name->toBe($client->last_name)
+        ->phone->toBe($client->phone)
+        ->comment->toBe($client->comment);
 });

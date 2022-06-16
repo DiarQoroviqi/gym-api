@@ -19,6 +19,7 @@ class ClientFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'phone' => $this->faker->phoneNumber(),
             'comment' => $this->faker->text(20),
+            'deleted_at' => null,
         ];
     }
 }

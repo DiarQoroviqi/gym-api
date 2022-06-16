@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Permissions\Role;
 use Domain\Contracting\Models\Client;
 use Domain\Shared\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -13,7 +14,7 @@ beforeEach(function () {
 it('can list clients for receptionist role', function () {
     $client = Client::factory()->create();
     $client2 = Client::factory()->create();
-    $this->user->assignRole('receptionist');
+    $this->user->assignRole(Role::RECEPTIONIST);
 
     $this->actingAs($this->user)->getJson('/api/v1/clients')
         ->assertStatus(200)
@@ -43,7 +44,7 @@ it('can filter clients', function () {
         'comment' => null,
     ]);
 
-    $this->user->assignRole('receptionist');
+    $this->user->assignRole(Role::RECEPTIONIST);
 
     $this->actingAs($this->user)->getJson('/api/v1/clients?'. http_build_query([
         'filter[first_name]' => 'john',

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
+use App\Permissions\Permission as GymPermission;
+use App\Permissions\Role as GymRole;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -16,14 +18,14 @@ class RolesAndPermissionsSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $arrayOfPermissions = [
-            'create clients',
-            'view clients',
-            'edit clients',
-            'delete clients',
-            'create contract',
-            'view contracts',
-            'edit contract',
-            'delete contract',
+            GymPermission::CAN_CREATE_CLIENTS,
+            GymPermission::CAN_VIEW_CLIENTS,
+            GymPermission::CAN_EDIT_CLIENTS,
+            GymPermission::CAN_DELETE_CLIENTS,
+            GymPermission::CAN_CREATE_CONTRACTS,
+            GymPermission::CAN_VIEW_CONTRACTS,
+            GymPermission::CAN_EDIT_CONTRACTS,
+            GymPermission::CAN_DELETE_CONTRACTS,
         ];
 
         $permissions = collect($arrayOfPermissions)->map(function ($permission) {
@@ -32,16 +34,16 @@ class RolesAndPermissionsSeeder extends Seeder
 
         Permission::insert($permissions->toArray());
 
-        Role::create(['name' => 'receptionist'])
+        Role::create(['name' => GymRole::RECEPTIONIST])
             ->givePermissionTo($arrayOfPermissions);
 
-        Role::create(['name' => 'super-admin'])
+        Role::create(['name' => GymRole::SUPER_ADMIN])
             ->givePermissionTo(Permission::all());
 
-        Role::create(['name' => 'coach'])
+        Role::create(['name' => GymRole::COACH])
             ->givePermissionTo([
-                'view clients',
-                'view contracts',
+                GymPermission::CAN_VIEW_CLIENTS,
+                GymPermission::CAN_VIEW_CONTRACTS,
             ]);
     }
 }
