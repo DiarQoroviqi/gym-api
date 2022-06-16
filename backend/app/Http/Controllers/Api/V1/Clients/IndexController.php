@@ -22,8 +22,8 @@ class IndexController extends Controller
             ->paginate(config('app.pagination.per_page'));
 
         return response()->json(
-            data: ClientResource::collection($clients),
-            status: Response::HTTP_OK
+            ClientResource::collection($clients),
+            Response::HTTP_OK
         );
     }
 }

@@ -16,7 +16,7 @@ it('can delete a client as a super-admin', function () {
 
     $this->user->assignRole(Role::SUPER_ADMIN);
 
-    $this->actingAs($this->user)->delete('/api/v1/clients/' . $client->uuid)
+    $this->actingAs($this->user)->delete(route('api.v1.clients.delete', $client->uuid))
         ->assertStatus(Response::HTTP_NO_CONTENT);
 
     expect($client->refresh())
@@ -28,7 +28,7 @@ it('can delete a client as a receptionist', function () {
 
     $this->user->assignRole(Role::RECEPTIONIST);
 
-    $this->actingAs($this->user)->delete('/api/v1/clients/' . $client->uuid)
+    $this->actingAs($this->user)->delete(route('api.v1.clients.delete', $client->uuid))
         ->assertStatus(Response::HTTP_NO_CONTENT);
 
     expect($client->refresh())
@@ -40,7 +40,7 @@ it('can not delete a client as a coach', function () {
 
     $this->user->assignRole(Role::COACH);
 
-    $this->actingAs($this->user)->delete('/api/v1/clients/' . $client->uuid)
+    $this->actingAs($this->user)->delete(route('api.v1.clients.delete', $client->uuid))
         ->assertStatus(Response::HTTP_UNAUTHORIZED);
 
     expect($client->refresh())

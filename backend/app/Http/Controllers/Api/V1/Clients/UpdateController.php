@@ -15,15 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdateController extends Controller
 {
-    public function __construct(
-        public readonly ClientFactory $factory,
-        public readonly UpdatesClient $action
-    ) {
+    public function __construct(public readonly ClientFactory $factory)
+    {
     }
 
-    public function __invoke(StoreClientRequest $request, Client $client): JsonResponse
+    public function __invoke(StoreClientRequest $request, Client $client, UpdatesClient $action): JsonResponse
     {
-        $client = $this->action($client, $this->factory->make($request->validated()));
+        $client = $action($client, $this->factory->make($request->validated()));
 
         return response()->json(
             ClientResource::make($client),

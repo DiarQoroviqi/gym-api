@@ -16,7 +16,7 @@ it('can list clients for receptionist role', function () {
     $client2 = Client::factory()->create();
     $this->user->assignRole(Role::RECEPTIONIST);
 
-    $this->actingAs($this->user)->getJson('/api/v1/clients')
+    $this->actingAs($this->user)->getJson(route('api.v1.clients.index'))
         ->assertStatus(200)
         ->assertJson(
             fn (AssertableJson $json) =>
