@@ -19,12 +19,12 @@ class CreateContractsTable extends Migration
             $table->id();
             $table->uuid();
             $table->foreignId('client_id')->constrained()->onDelete('CASCADE');
-            $table->dateTime('payment_date');
+            $table->dateTime('payed_at');
             $table->decimal('price');
-            $table->dateTime('from_date');
-            $table->dateTime('to_date');
+            $table->dateTime('started_at');
+            $table->dateTime('expired_at');
             $table->text('comment')->nullable()->default(null);
-            $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
