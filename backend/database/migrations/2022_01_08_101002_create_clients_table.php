@@ -22,7 +22,7 @@ class CreateClientsTable extends Migration
             $table->string('last_name');
             $table->string('phone')->nullable()->unique();
             $table->text('comment')->nullable()->default(null);
-            $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
