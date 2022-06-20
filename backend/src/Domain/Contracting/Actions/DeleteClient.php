@@ -9,7 +9,7 @@ use Infrastructure\Contracting\Actions\DeletesClient;
 
 class DeleteClient implements DeletesClient
 {
-    public function handle(Client $client): ?bool
+    public function __invoke(Client $client): ?bool
     {
         return $client->delete();
     }

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Client::factory(20)->create()->each(function (Client $client) {
-            Contract::factory(rand(1, 4))->for($client)->create();
+            Contract::factory()->for($client)->create();
         });
 
         Payment::factory(20)->sequence(function () {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Permissions\Role;
 use Domain\Contracting\Models\Client;
+use Domain\Contracting\Models\Contract;
 use Domain\Shared\Models\User;
 use Illuminate\Testing\Fluent\AssertableJson;
 
@@ -72,13 +73,34 @@ it('can filter clients', function () {
         );
 });
 
+it('can list clients with contracts', function () {
+    $client1 = Client::factory()->create();
+    Contract::factory()->for($client1)->create();
+
+    $client2 = Client::factory()->create();
+    Contract::factory()->for($client2)->create();
+
+    $this->user->assignRole(Role::RECEPTIONIST);
+
+    $response = $this->actingAs($this->user)->getJson(
+        route('api.v1.clients.index', http_build_query([
+            'include' => 'contract',
+        ]))
+    );
+
+    expect($response->getContent())
+        ->json()
+        ->toHaveCount(2)
+        ->each(fn ($client) =>  $client->relationships->contract->not()->toBeNull());
+});
+
 it('should return 401 for users without any role', function () {
     $this->actingAs($this->user)->getJson('/api/v1/clients')
         ->assertStatus(401);
 });
 
 it('should return 401 without authentication token', function () {
-    $this->getJson('/api/v1/clients')
+    $this->getJson(route('api.v1.clients.index'))
         ->assertStatus(401)
         ->assertJson([
             'message' => 'Unauthenticated.',

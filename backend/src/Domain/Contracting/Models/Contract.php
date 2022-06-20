@@ -17,10 +17,10 @@ class Contract extends Model
     use HasUuid;
 
     protected $casts = [
-        'payment_date' => 'datetime',
+        'payed_at' => 'datetime',
         'price' => 'double',
-        'from_date' => 'datetime',
-        'to_date' => 'datetime',
+        'started_at' => 'datetime',
+        'expired_at' => 'datetime',
     ];
 
     protected static function newFactory(): Factory

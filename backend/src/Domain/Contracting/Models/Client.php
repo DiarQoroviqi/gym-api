@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Model
@@ -37,9 +38,9 @@ class Client extends Model
         return new ClientBuilder($query);
     }
 
-    public function contracts(): HasMany
+    public function contract(): HasOne
     {
-        return $this->hasMany(Contract::class, 'client_id');
+        return $this->hasOne(Contract::class, 'client_id');
     }
 
     protected static function newFactory(): Factory

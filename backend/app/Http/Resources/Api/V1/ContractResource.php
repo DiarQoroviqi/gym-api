@@ -12,10 +12,10 @@ class ContractResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'payment_date' => $this->payment_date->toDateString(),
+            'payed_at' => $this->payed_at->toDateString(),
             'price' => $this->price,
-            'from_date' => $this->from_date->toDateString(),
-            'to_date' => $this->to_date->toDateString(),
+            'started_at' => $this->started_at->toDateString(),
+            'expired_at' => $this->expired_at->toDateString(),
         ];
     }
 }

@@ -22,11 +22,12 @@ class ClientResource extends JsonResource
                 'updated_at' => $this->updated_at->toDateTimeString(),
             ],
             'relationships' => [
-                'contracts' => ContractResource::collection($this->whenLoaded('contracts')),
+                'contract' => ContractResource::make($this->whenLoaded('contract')),
             ],
             'links' => [
                 'self' => route('api.v1.clients.show', $this->uuid),
                 'parent' => route('api.v1.clients.index'),
+                'contract' => null,
             ],
         ];
     }

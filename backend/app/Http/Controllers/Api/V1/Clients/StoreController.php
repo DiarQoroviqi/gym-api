@@ -14,9 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StoreController extends Controller
 {
-    public function __construct(
-        public readonly ClientFactory $factory
-    ) {
+    public function __construct(protected readonly ClientFactory $factory)
+    {
     }
 
     public function __invoke(StoreClientRequest $request, CreatesClient $action): JsonResponse

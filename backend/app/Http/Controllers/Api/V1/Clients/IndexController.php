@@ -18,7 +18,7 @@ class IndexController extends Controller
     {
         $clients = QueryBuilder::for(Client::class)
             ->allowedFilters(['first_name', 'last_name', 'phone', 'comment'])
-            ->allowedIncludes(['contracts'])
+            ->allowedIncludes(['contract'])
             ->paginate(config('app.pagination.per_page'));
 
         return response()->json(

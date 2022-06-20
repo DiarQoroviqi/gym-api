@@ -8,5 +8,5 @@ use Domain\Contracting\Models\Client;
 
 interface DeletesClient
 {
-    public function handle(Client $client): ?bool;
+    public function __invoke(Client $client): ?bool;
 }

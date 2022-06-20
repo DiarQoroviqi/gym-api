@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Exception|Throwable $e): JsonResponse
+    public function render($request, Exception|Throwable $e): JsonResponse|Response
     {
         if ($e instanceof UnauthorizedException) {
             return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);

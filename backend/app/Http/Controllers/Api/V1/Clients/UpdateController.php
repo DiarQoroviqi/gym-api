@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdateController extends Controller
 {
-    public function __construct(public readonly ClientFactory $factory)
+    public function __construct(protected readonly ClientFactory $factory)
     {
     }
 
