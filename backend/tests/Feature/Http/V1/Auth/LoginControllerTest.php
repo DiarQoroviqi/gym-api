@@ -11,7 +11,7 @@ it('should return 422 if password is wrong', function (string $password) {
         'password' => Hash::make($password),
     ]);
 
-    postJson('/api/v1/auth/login', [
+    postJson(route('api.v1.auth.login'), [
         'email' => $user->email,
         'password' => 'wrong-password',
     ])
@@ -21,7 +21,7 @@ it('should return 422 if password is wrong', function (string $password) {
 it('can authenticate user', function () {
     $user = User::factory()->create();
 
-    $response = $this->post('/api/v1/auth/login', [
+    $response = $this->post(route('api.v1.auth.login'), [
         'email' => $user->email,
         'password' => 'password',
     ]);

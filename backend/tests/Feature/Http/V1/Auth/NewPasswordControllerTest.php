@@ -11,7 +11,7 @@ it('should return 422 if missing parameters', function (string $password) {
 
     $token = Password::createToken($user);
 
-    postJson('/api/v1/auth/reset-password', [
+    postJson(route('api.v1.auth.reset-password'), [
         'email' => $user->email,
         'password' => $password,
         'token' => $token,
@@ -24,7 +24,7 @@ it('can create new password', function (string $password) {
 
     $token = Password::createToken($user);
 
-    postJson('/api/v1/auth/reset-password', [
+    postJson(route('api.v1.auth.reset-password'), [
         'email' => $user->email,
         'password' => $password,
         'password_confirmation' => $password,
