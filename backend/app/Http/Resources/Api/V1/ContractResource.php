@@ -18,7 +18,7 @@ class ContractResource extends JsonResource
             'started_at' => $this->started_at->toDateTimeString(),
             'expired_at' => $this->expired_at->toDateTimeString(),
             'links' => [
-                'self' => route('api.v1.clients.show', $this->uuid),
+                'self' => null,
             ],
         ];
     }

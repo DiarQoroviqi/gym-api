@@ -44,6 +44,7 @@ Route::prefix('clients')->as('clients.')->middleware(['auth:sanctum'])->group(fu
         ->middleware(['permission:delete-clients'])
         ->name('delete');
 
+    // Contract
     Route::get('/{client:uuid}/contract', ClientsContractShowController::class)
         ->middleware(['permission:view-clients'])
         ->name('contracts.show');
