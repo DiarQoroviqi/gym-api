@@ -10,7 +10,7 @@ beforeEach(function () {
     $this->user = User::factory()->create();
 });
 
-it('can show client', function () {
+it('can retrieve a client', function () {
     $client = Client::factory()->create();
 
     $this->user->assignRole(Role::RECEPTIONIST);
@@ -24,8 +24,9 @@ it('can show client', function () {
         ->json()
         ->id->toBe($client->uuid)
         ->type->toBe('client')
-        ->attributes->first_name->toBe($client->first_name)
-        ->attributes->last_name->toBe($client->last_name)
-        ->attributes->phone->toBe($client->phone)
-        ->attributes->comment->toBe($client->comment);
+        ->first_name->toBe($client->first_name)
+        ->last_name->toBe($client->last_name)
+        ->phone->toBe($client->phone)
+        ->comment->toBe($client->comment)
+        ->links->self->toBe(route('api.v1.clients.show', $client));
 });

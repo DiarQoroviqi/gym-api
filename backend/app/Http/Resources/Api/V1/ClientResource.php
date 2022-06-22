@@ -11,23 +11,17 @@ class ClientResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->uuid,
             'type' => 'client',
-            'attributes' => [
-                'first_name' => $this->first_name,
-                'last_name' => $this->last_name,
-                'phone' => $this->phone,
-                'comment' => $this->comment,
-                'created_at' => $this->created_at->toDateTimeString(),
-                'updated_at' => $this->updated_at->toDateTimeString(),
-            ],
-            'relationships' => [
-                'contract' => ContractResource::make($this->whenLoaded('contract')),
-            ],
+            'id' => $this->uuid,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'phone' => $this->phone,
+            'comment' => $this->comment,
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
+            'contract' => ContractResource::make($this->whenLoaded('contract')),
             'links' => [
-                'self' => route('api.v1.clients.show', $this->uuid),
-                'parent' => route('api.v1.clients.index'),
-                'contract' => null,
+                'self' => route('api.v1.clients.show', $this->resource),
             ],
         ];
     }

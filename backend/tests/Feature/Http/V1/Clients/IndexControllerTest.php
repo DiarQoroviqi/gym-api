@@ -6,32 +6,25 @@ use App\Permissions\Role;
 use Domain\Contracting\Models\Client;
 use Domain\Contracting\Models\Contract;
 use Domain\Shared\Models\User;
-use Illuminate\Testing\Fluent\AssertableJson;
 
 beforeEach(function () {
     $this->user = User::factory()->create();
 });
 
-it('can list clients for receptionist role', function () {
-    $client = Client::factory()->create();
-    $client2 = Client::factory()->create();
+it('can retrieve a list of clients for receptionist role', function () {
+    Client::factory($count = 2)->create();
     $this->user->assignRole(Role::RECEPTIONIST);
 
-    $this->actingAs($this->user)->getJson(route('api.v1.clients.index'))
-        ->assertStatus(200)
-        ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(2)
-                ->where('0.id', $client->uuid)
-                ->where('0.attributes.first_name', $client->first_name)
-                ->where('1.id', $client2->uuid)
-                ->where('1.attributes.first_name', $client2->first_name)
-                ->etc()
-        );
+    $response = $this->actingAs($this->user)->getJson(route('api.v1.clients.index'));
+
+    expect($response->getContent())
+        ->json()
+        ->data->toHaveCount($count)
+        ->meta->not()->toBeNull();
 });
 
-it('can filter clients', function () {
-    $client = Client::factory()->create([
+it('can retrieve a list of filtered clients', function () {
+    $client1 = Client::factory()->create([
         'first_name' => 'John',
         'last_name' => 'Doe',
         'phone' => '11111111',
@@ -47,38 +40,37 @@ it('can filter clients', function () {
 
     $this->user->assignRole(Role::RECEPTIONIST);
 
-    $this->actingAs($this->user)->getJson('/api/v1/clients?'. http_build_query([
-        'filter[first_name]' => 'john',
-        'filter[last_name]' => 'doe',
-    ]))
-        ->assertStatus(200)
-        ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(1)
-                ->where('0.id', $client->uuid)
-                ->where('0.attributes.first_name', $client->first_name)
-                ->etc()
+    $response = $this->actingAs($this->user)
+        ->getJson(route('api.v1.clients.index', http_build_query([
+            'filter[first_name]' => 'john',
+        ])));
+
+    expect($response->getContent())
+        ->json()->data
+        ->toHaveCount(1)
+        ->each(
+            fn ($client) => $client->first_name->toEqual($client1->first_name)
         );
 
-    $this->actingAs($this->user)->getJson('/api/v1/clients?'. http_build_query([
-        'filter[phone]' => '22222222',
-    ]))
-        ->assertStatus(200)
-        ->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(1)
-                ->where('0.id', $client2->uuid)
-                ->where('0.attributes.first_name', $client2->first_name)
-                ->etc()
+    $response = $this->actingAs($this->user)
+        ->getJson(route('api.v1.clients.index', http_build_query([
+            'filter[phone]' => '22222222',
+        ])));
+
+    expect($response->getContent())
+        ->json()->data
+        ->toHaveCount(1)
+        ->each(
+            fn ($client) => $client->phone->toEqual($client2->phone)
         );
 });
 
-it('can list clients with contracts', function () {
+it('can retrieve a list of clients with contracts', function () {
     $client1 = Client::factory()->create();
-    Contract::factory()->for($client1)->create();
+    $contract1 = Contract::factory()->for($client1)->create();
 
     $client2 = Client::factory()->create();
-    Contract::factory()->for($client2)->create();
+    $contract2 = Contract::factory()->for($client2)->create();
 
     $this->user->assignRole(Role::RECEPTIONIST);
 
@@ -86,16 +78,20 @@ it('can list clients with contracts', function () {
         route('api.v1.clients.index', http_build_query([
             'include' => 'contract',
         ]))
-    );
+    )->assertOk();
 
     expect($response->getContent())
         ->json()
-        ->toHaveCount(2)
-        ->each(fn ($client) =>  $client->relationships->contract->not()->toBeNull());
+        ->meta->not->toBeNull()
+        ->data->toHaveCount(2)
+        ->each(
+            fn ($client) =>
+            $client->contract->not->toBeNull()
+        );
 });
 
 it('should return 401 for users without any role', function () {
-    $this->actingAs($this->user)->getJson('/api/v1/clients')
+    $this->actingAs($this->user)->getJson(route('api.v1.clients.index'))
         ->assertStatus(401);
 });
 

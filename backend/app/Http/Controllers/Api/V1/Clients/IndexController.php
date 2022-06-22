@@ -21,8 +21,8 @@ class IndexController extends Controller
             ->allowedIncludes(['contract'])
             ->paginate(config('app.pagination.per_page'));
 
-        return response()->json(
-            ClientResource::collection($clients),
+        return new JsonResponse(
+            ClientResource::collection($clients)->response()->getData(true),
             Response::HTTP_OK
         );
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\NewPasswordController;
+use App\Http\Controllers\Api\V1\Clients\Contracts\ShowController as ClientsContractShowController;
 use App\Http\Controllers\Api\V1\Clients\DeleteController;
 use App\Http\Controllers\Api\V1\Clients\IndexController;
 use App\Http\Controllers\Api\V1\Clients\ShowController;
@@ -26,16 +27,24 @@ Route::prefix('clients')->as('clients.')->middleware(['auth:sanctum'])->group(fu
     Route::get('/', IndexController::class)
         ->middleware(['permission:view-clients'])
         ->name('index');
+
     Route::post('/', StoreController::class)
         ->middleware(['permission:create-clients'])
         ->name('store');
+
     Route::get('/{client:uuid}', ShowController::class)
         ->middleware(['permission:view-clients'])
         ->name('show');
+
     Route::match(['put', 'patch'], '/{client:uuid}', UpdateController::class)
         ->middleware(['permission:edit-clients'])
         ->name('update');
+
     Route::delete('/{client:uuid}', DeleteController::class)
         ->middleware(['permission:delete-clients'])
         ->name('delete');
+
+    Route::get('/{client:uuid}/contract', ClientsContractShowController::class)
+        ->middleware(['permission:view-clients'])
+        ->name('contracts.show');
 });
