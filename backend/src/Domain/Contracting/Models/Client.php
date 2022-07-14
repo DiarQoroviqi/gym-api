@@ -6,7 +6,7 @@ namespace Domain\Contracting\Models;
 
 use Database\Factories\ClientFactory;
 use Deviar\LaravelQueryFilter\Filters\Filterable;
-use Domain\Contracting\Builders\ClientBuilder;
+use Domain\Contracting\QueryBuilders\ClientBuilder;
 use Domain\Shared\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,13 +37,13 @@ class Client extends Model
         return new ClientBuilder($query);
     }
 
-    public function contract(): HasOne
-    {
-        return $this->hasOne(Contract::class, 'client_id');
-    }
-
     protected static function newFactory(): Factory
     {
         return new ClientFactory();
+    }
+
+    public function contract(): HasOne
+    {
+        return $this->hasOne(Contract::class, 'client_id');
     }
 }
