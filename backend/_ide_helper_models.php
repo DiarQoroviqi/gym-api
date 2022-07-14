@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // @formatter:off
 /**
  * A helper file for your Eloquent Models
@@ -8,7 +10,6 @@
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  */
-
 
 namespace Domain\Contracting\Models{
 /**
@@ -33,7 +34,9 @@ namespace Domain\Contracting\Models{
  * @method static \Illuminate\Database\Query\Builder|Client withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Client withoutTrashed()
  */
-	class Client extends \Eloquent {}
+    class Client extends \Eloquent
+    {
+    }
 }
 
 namespace Domain\Contracting\Models{
@@ -57,7 +60,9 @@ namespace Domain\Contracting\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Contract newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Contract query()
  */
-	class Contract extends \Eloquent {}
+    class Contract extends \Eloquent
+    {
+    }
 }
 
 namespace Domain\Contracting\Models{
@@ -75,7 +80,9 @@ namespace Domain\Contracting\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
  */
-	class Payment extends \Eloquent {}
+    class Payment extends \Eloquent
+    {
+    }
 }
 
 namespace Domain\Shared\Models{
@@ -106,6 +113,7 @@ namespace Domain\Shared\Models{
  * @method static \Domain\Shared\Models\Builders\UserBuilder|User query()
  * @method static \Domain\Shared\Models\Builders\UserBuilder|User role($roles, $guard = null)
  */
-	class User extends \Eloquent {}
+    class User extends \Eloquent
+    {
+    }
 }
-

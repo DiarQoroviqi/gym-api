@@ -24,8 +24,8 @@ class UpdateController extends Controller
         $client = $action($client, $this->factory->make($request->validated()));
 
         return response()->json(
-            ClientResource::make($client),
-            Response::HTTP_OK
+            data: ClientResource::make($client),
+            status: Response::HTTP_OK
         );
     }
 }

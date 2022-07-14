@@ -23,8 +23,8 @@ class StoreController extends Controller
         $client = $action($this->factory->make($request->validated()));
 
         return response()->json(
-            ClientResource::make($client),
-            Response::HTTP_CREATED
+            data: ClientResource::make($client),
+            status: Response::HTTP_CREATED
         );
     }
 }

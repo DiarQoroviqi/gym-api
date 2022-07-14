@@ -15,8 +15,8 @@ class ShowController extends Controller
     public function __invoke(Client $client): JsonResponse
     {
         return new JsonResponse(
-            ContractResource::make($client->contract),
-            Response::HTTP_OK
+            data: ContractResource::make($client->contract),
+            status: Response::HTTP_OK
         );
     }
 }
