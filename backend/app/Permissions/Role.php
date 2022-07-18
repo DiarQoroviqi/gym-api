@@ -7,6 +7,8 @@ namespace App\Permissions;
 class Role
 {
     public const RECEPTIONIST = 'receptionist';
+
     public const SUPER_ADMIN = 'super-admin';
+
     public const COACH = 'coach';
 }

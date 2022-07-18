@@ -21,6 +21,7 @@ class Contract extends Model
         'price' => 'double',
         'started_at' => 'datetime',
         'expired_at' => 'datetime',
+        'uuid' => 'string',
     ];
 
     protected static function newFactory(): Factory
@@ -31,5 +32,10 @@ class Contract extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function isActive(): bool
+    {
+        return $this->expired_at > now();
     }
 }

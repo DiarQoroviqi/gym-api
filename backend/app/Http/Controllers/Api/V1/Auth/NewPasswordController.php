@@ -10,8 +10,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\Response;
 use function response;
+use Symfony\Component\HttpFoundation\Response;
 
 class NewPasswordController extends Controller
 {

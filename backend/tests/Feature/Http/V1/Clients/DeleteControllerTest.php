@@ -34,15 +34,3 @@ it('can delete a client as a receptionist', function () {
     expect($client->refresh())
         ->deleted_at->not->toBeNull();
 });
-
-it('can not delete a client as a coach', function () {
-    $client = Client::factory()->create();
-
-    $this->user->assignRole(Role::COACH);
-
-    $this->actingAs($this->user)->delete(route('api.v1.clients.delete', $client->uuid))
-        ->assertStatus(Response::HTTP_UNAUTHORIZED);
-
-    expect($client->refresh())
-        ->deleted_at->toBeNull();
-});

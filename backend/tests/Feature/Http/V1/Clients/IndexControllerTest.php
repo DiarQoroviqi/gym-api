@@ -6,6 +6,7 @@ use App\Permissions\Role;
 use Domain\Contracting\Models\Client;
 use Domain\Contracting\Models\Contract;
 use Domain\Shared\Models\User;
+use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -85,14 +86,13 @@ it('can retrieve a list of clients with contracts', function () {
         ->meta->not->toBeNull()
         ->data->toHaveCount(2)
         ->each(
-            fn ($client) =>
-            $client->contract->not->toBeNull()
+            fn ($client) => $client->contract->not->toBeNull()
         );
 });
 
 it('should return 401 for users without any role', function () {
     $this->actingAs($this->user)->getJson(route('api.v1.clients.index'))
-        ->assertStatus(401);
+        ->assertStatus(Response::HTTP_FORBIDDEN);
 });
 
 it('should return 401 without authentication token', function () {

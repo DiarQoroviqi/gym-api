@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
-use Spatie\Permission\Exceptions\UnauthorizedException;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,23 +41,27 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (Exception $exception, Request $request) {
+            if ($request->wantsJson()) {
+                return $this->handleApiException($exception);
+            }
+
+            return parent::render($request, $exception);
         });
     }
 
-    public function render($request, Exception|Throwable $e): JsonResponse|Response
+    private function handleApiException(Exception $exception): JsonResponse
     {
-        if ($e instanceof UnauthorizedException) {
-            return response()->json(['message' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+        $exception = $this->prepareException($exception);
+
+        if ($exception instanceof AuthenticationException) {
+            return ApiExceptionHandler::unauthenticated();
         }
 
-        if ($e instanceof ModelNotFoundException) {
-            return response()->json([
-                'message' => 'Resource not found!',
-            ], Response::HTTP_NOT_FOUND);
+        if ($exception instanceof ValidationException) {
+            return ApiExceptionHandler::validationException($exception);
         }
 
-        return parent::render($request, $e);
+        return (new ApiExceptionHandler($exception))->create()->response();
     }
 }

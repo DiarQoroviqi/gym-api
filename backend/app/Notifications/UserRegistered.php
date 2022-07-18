@@ -40,7 +40,7 @@ class UserRegistered extends Notification implements ShouldQueue
 
     private function url($notifiable): string
     {
-        return config('services.frontend.reset_password_url') . '?' . http_build_query([
+        return config('services.frontend.reset_password_url').'?'.http_build_query([
             'token' => $this->token,
             'email' => $notifiable->getEmailForPasswordReset(),
         ]);

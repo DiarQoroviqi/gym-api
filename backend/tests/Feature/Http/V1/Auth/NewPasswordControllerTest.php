@@ -17,7 +17,7 @@ it('should return 422 if missing parameters', function (string $password) {
         'token' => $token,
     ])
         ->assertStatus(422);
-})->with(['new-password']);;
+})->with(['new-password']);
 
 it('can create new password', function (string $password) {
     $user = User::factory()->create();

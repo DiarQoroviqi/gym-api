@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return \Domain\Shared\Enums\Roles::RECEPTIONIST->value;
+    return \Domain\Contracting\Enums\ContractTypes::cases();
 //    return view('welcome');
 });
