@@ -15,4 +15,5 @@ class CreateClientContract implements CreatesClientContract
     {
         return $client->contract()->create($data->toArray());
     }
+    
 }
