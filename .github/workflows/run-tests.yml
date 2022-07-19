@@ -61,3 +61,4 @@ jobs:
           run: vendor/bin/pest
           env:
             DB_PASSWORD: root
+
