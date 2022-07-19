@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "pestphp/pest": "^1.21",
+        "spatie/data-transfer-object": "^3.8",
         "spatie/laravel-permission": "^5.5",
         "spatie/laravel-query-builder": "^5.0",
         "timacdonald/json-api": "^0.2.1"

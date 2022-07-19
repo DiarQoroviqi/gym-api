@@ -18,12 +18,11 @@ class StoreClientContractRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client' => ['required', 'string', Rule::exists('clients', 'uuid')],
             'comment' => ['nullable', 'present', 'string'],
-            'payed_at' => ['required', 'date'],
-            'price' => ['required', 'number'],
-            'started_at' => ['required', 'date'],
-            'contract_type' => ['required', Rule::in(ContractTypes::cases())],
+            'payed_at' => ['required', 'date_format:Y-m-d H:i:s'],
+            'price' => ['required', 'numeric'],
+            'started_at' => ['required', 'date_format:Y-m-d'],
+            'contract_type' => ['required', Rule::in(array_column(ContractTypes::cases(), 'value'))],
         ];
     }
 }

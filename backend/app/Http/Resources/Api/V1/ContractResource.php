@@ -17,12 +17,14 @@ class ContractResource extends JsonResource
         return [
             'type' => 'contract',
             'id' => $this->uuid,
-            'payed_at' => $this->payed_at->toDateString(),
+            'payed_at' => $this->payed_at->toDateTimeString(),
             'price' => $this->price,
+            'contract_type' => $this->contract_type,
             'started_at' => $this->started_at->toDateTimeString(),
             'expired_at' => $this->expired_at->toDateTimeString(),
+            'comment' => $this->comment,
             'links' => [
-                'self' => null,
+                'self' => route('api.v1.clients.contract.show', $this->client),
             ],
         ];
     }

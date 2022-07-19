@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Contracting\Models;
 
 use Database\Factories\ContractFactory;
+use Domain\Contracting\Observers\ContractObserver;
 use Domain\Shared\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,23 @@ class Contract extends Model
         'expired_at' => 'datetime',
         'uuid' => 'string',
     ];
+
+    protected $fillable = [
+        'comment',
+        'client_id',
+        'payed_at',
+        'price',
+        'started_at',
+        'expired_at',
+        'contract_type',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::observe(ContractObserver::class);
+    }
 
     protected static function newFactory(): Factory
     {

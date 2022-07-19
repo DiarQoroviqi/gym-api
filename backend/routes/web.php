@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Domain\Contracting\Enums\ContractTypes;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return \Domain\Contracting\Enums\ContractTypes::cases();
+    dd(ContractTypes::from(1)->value);
 //    return view('welcome');
 });

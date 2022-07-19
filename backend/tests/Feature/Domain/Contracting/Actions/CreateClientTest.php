@@ -3,22 +3,22 @@
 declare(strict_types=1);
 
 use Domain\Contracting\Actions\CreateClient;
+use Domain\Contracting\DataTransferObjects\ClientData;
 use Domain\Contracting\Models\Client;
-use Domain\Contracting\ValueObjects\ClientValueObject;
 
 it('creates client', function () {
     $action = app(CreateClient::class);
 
     $client = Client::factory()->make();
 
-    $clientValueObject = new ClientValueObject(
-        $client->first_name,
-        $client->last_name,
-        $client->phone,
-        $client->comment,
-    );
+    $clientData = new ClientData([
+        'first_name' => $client->first_name,
+        'last_name' => $client->last_name,
+        'phone' => $client->phone,
+        'comment' => $client->comment,
+    ]);
 
-    $createdClient = $action($clientValueObject);
+    $createdClient = $action($clientData);
 
     expect($createdClient->refresh())
         ->first_name->toBe($client->first_name)

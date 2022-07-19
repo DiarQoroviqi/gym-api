@@ -21,6 +21,7 @@ class CreateContractsTable extends Migration
             $table->foreignId('client_id')->constrained()->onDelete('CASCADE');
             $table->dateTime('payed_at');
             $table->decimal('price');
+            $table->unsignedSmallInteger('contract_type');
             $table->dateTime('started_at');
             $table->dateTime('expired_at');
             $table->text('comment')->nullable()->default(null);
