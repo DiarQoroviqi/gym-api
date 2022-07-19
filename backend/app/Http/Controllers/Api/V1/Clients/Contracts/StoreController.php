@@ -30,4 +30,5 @@ class StoreController extends Controller
             status: Response::HTTP_OK
         );
     }
+
 }
