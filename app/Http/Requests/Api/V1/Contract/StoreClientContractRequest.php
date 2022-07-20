@@ -21,7 +21,7 @@ class StoreClientContractRequest extends FormRequest
             'comment' => ['nullable', 'present', 'string'],
             'payed_at' => ['required', 'date_format:Y-m-d H:i:s'],
             'price' => ['required', 'numeric'],
-            'started_at' => ['required', 'date_format:Y-m-d'],
+            'started_at' => ['required', 'date'],
             'contract_type' => ['required', Rule::in(array_column(ContractTypes::cases(), 'value'))],
         ];
     }
