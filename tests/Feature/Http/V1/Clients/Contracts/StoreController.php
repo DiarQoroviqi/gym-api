@@ -14,7 +14,7 @@ beforeEach(function () {
     login();
 });
 
-it('will create new contract for a client', function() {
+it('will create new contract for a client', function () {
     $client = Client::factory()->create();
     $contract = Contract::factory()->make();
 

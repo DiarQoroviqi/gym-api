@@ -7,7 +7,7 @@ use Domain\Contracting\Models\Client;
 use Domain\Contracting\Models\Contract;
 use function Pest\Laravel\getJson;
 
-it('can show a client contract', function() {
+it('can show a client contract', function () {
     login();
 
     $client = Client::factory()->create();
