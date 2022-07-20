@@ -20,5 +20,5 @@ it('can show a client contract', function () {
         ->assertJsonPath('type', 'contract')
         ->assertJsonPath('id', $contract->uuid)
         ->assertJsonPath('links.self', action(ShowController::class, $client->uuid));
-    
+
 });
