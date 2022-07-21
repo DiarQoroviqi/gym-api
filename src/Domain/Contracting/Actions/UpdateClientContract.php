@@ -11,7 +11,6 @@ use Infrastructure\Contracting\Actions\UpdatesClientContract;
 
 class UpdateClientContract implements UpdatesClientContract
 {
-
     public function __invoke(ClientContractData $data, Client $client): Contract
     {
         $client->contract->fill($data->toArray())->save();

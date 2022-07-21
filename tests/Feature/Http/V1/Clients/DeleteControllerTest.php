@@ -2,35 +2,38 @@
 
 declare(strict_types=1);
 
-use App\Permissions\Role;
+use App\Http\Controllers\Api\V1\Clients\DeleteController;
 use Domain\Contracting\Models\Client;
-use Domain\Shared\Models\User;
+use Domain\Contracting\Models\Contract;
+use function Pest\Laravel\assertDatabaseCount;
+use function Pest\Laravel\deleteJson;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
-    $this->user = User::factory()->create();
+    login();
+
+    $this->client = Client::factory()->create();
 });
 
-it('can delete a client as a super-admin', function () {
-    $client = Client::factory()->create();
-
-    $this->user->assignRole(Role::SUPER_ADMIN);
-
-    $this->actingAs($this->user)->delete(route('api.v1.clients.delete', $client->uuid))
+it('can delete a client', function () {
+    deleteJson(action(DeleteController::class, $this->client->uuid))
         ->assertStatus(Response::HTTP_NO_CONTENT);
 
-    expect($client->refresh())
+    expect($this->client->refresh())
         ->deleted_at->not->toBeNull();
 });
 
-it('can delete a client as a receptionist', function () {
-    $client = Client::factory()->create();
+it('will delete client contract after deleting the client', function () {
+    login();
 
-    $this->user->assignRole(Role::RECEPTIONIST);
+    Contract::factory()
+        ->for($this->client)
+        ->create();
 
-    $this->actingAs($this->user)->delete(route('api.v1.clients.delete', $client->uuid))
-        ->assertStatus(Response::HTTP_NO_CONTENT);
+    deleteJson(action(DeleteController::class, $this->client->uuid));
 
-    expect($client->refresh())
+    expect($this->client->refresh())
         ->deleted_at->not->toBeNull();
+
+    assertDatabaseCount(Contract::class, 0);
 });

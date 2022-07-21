@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="StoreController.php::it validates the date format of payed_at field" type="PestRunConfigurationType">
+    <CommandLine>
+      <PhpTestInterpreterSettings>
+        <option name="interpreterName" value="laravel.test" />
+      </PhpTestInterpreterSettings>
+    </CommandLine>
+    <option name="pestRunnerSettings">
+      <PestRunner file="$PROJECT_DIR$/tests/Feature/Http/V1/Clients/Contracts/StoreController.php" method="it validates the date format of payed_at field" scope="Method" />
+    </option>
+    <option name="runnerSettings">
+      <PhpTestRunnerSettings file="$PROJECT_DIR$/tests/Feature/Http/V1/Clients/Contracts/StoreController.php" method="it validates the date format of payed_at field" scope="Method" />
+    </option>
+    <method v="2" />
+  </configuration>
+</component>

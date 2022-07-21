@@ -19,8 +19,7 @@ class UpdateController extends Controller
         StoreClientContractRequest $request,
         Client $client,
         UpdatesClientContract $action
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $action(
             ClientContractData::fromStoreRequest($request),
             $client
