@@ -6,6 +6,7 @@ namespace Domain\Contracting\Models;
 
 use Database\Factories\ClientFactory;
 use Deviar\LaravelQueryFilter\Filters\Filterable;
+use Domain\Contracting\Observers\ClientObserver;
 use Domain\Contracting\QueryBuilders\ClientBuilder;
 use Domain\Shared\Models\Concerns\HasUuid;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -31,6 +32,13 @@ class Client extends Model
         'phone',
         'comment',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::observe(ClientObserver::class);
+    }
 
     public function newEloquentBuilder($query): ClientBuilder
     {
