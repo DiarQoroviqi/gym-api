@@ -17,6 +17,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    dd(ContractTypes::from(1)->value);
-//    return view('welcome');
+    return view('welcome');
 });
