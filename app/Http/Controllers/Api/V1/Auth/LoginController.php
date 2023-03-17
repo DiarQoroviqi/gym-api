@@ -29,6 +29,7 @@ class LoginController extends Controller
 
         return response()->json([
             'data' => [
+                'id' => $user->uuid,
                 'name' => $user->name,
                 'email' => $user->email,
                 'token' => $user->createToken('main')->plainTextToken,
@@ -38,7 +39,7 @@ class LoginController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
 
         return response()->json([
             'data' => [
